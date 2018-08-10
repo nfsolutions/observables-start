@@ -1,5 +1,6 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {interval, Observable, Observer, Subscription} from 'rxjs';
+import 'rxjs/add/operator/map';
 
 @Component({
   selector: 'app-home',
@@ -15,7 +16,13 @@ export class HomeComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    const myNumbers = interval(1000);
+    const myNumbers = interval(1000)
+      .map(
+        (data: number ) => {
+          return data * 2;
+        }
+      );
+
     this.numbersSubscription = myNumbers.subscribe(
       (number: number) => {
         console.log(number);
